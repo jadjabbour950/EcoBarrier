@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://u3tvs1oh2ak4"]
+
+[ext_resource type="Script" path="res://GameScene.gd" id="1_7v8ik"]
+[ext_resource type="Texture2D" uid="uid://be6qne54j4o35" path="res://icon.svg" id="1_13ond"]
+[ext_resource type="Script" path="res://Earth.gd" id="2_en4jt"]
+[ext_resource type="Script" path="res://Barrier.gd" id="3_cqmg3"]
+[ext_resource type="Script" path="res://ColorRect.gd" id="4_lxptr"]
+[ext_resource type="Script" path="res://Meteor.gd" id="5_udtmg"]
+[ext_resource type="Script" path="res://Sprite.gd" id="6_2l8wi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xja2h"]
+size = Vector2(103, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utnep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stbio"]
+size = Vector2(128, 128)
+
+[sub_resource type="Curve2D" id="Curve2D_ipwn5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -576, 328, 0, 0, 0, 0, -576, -328, 0, 0, 0, 0, 576, -328, 0, 0, 0, 0, 576, 328, 0, 0, 0, 0, -576, 328)
+}
+point_count = 5
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_7v8ik")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+offset_left = -577.0
+offset_top = -324.0
+offset_right = 575.0
+offset_bottom = 322.0
+
+[node name="Barrier" type="CharacterBody2D" parent="."]
+position = Vector2(-1, 0)
+script = ExtResource("3_cqmg3")
+
+[node name="ColorRect" type="ColorRect" parent="Barrier"]
+offset_left = -50.0
+offset_top = -132.0
+offset_right = 53.0
+offset_bottom = -114.0
+script = ExtResource("4_lxptr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier"]
+position = Vector2(1.5, -123)
+shape = SubResource("RectangleShape2D_xja2h")
+
+[node name="Earth" type="Area2D" parent="."]
+script = ExtResource("2_en4jt")
+
+[node name="Earth" type="Sprite2D" parent="Earth"]
+texture = ExtResource("1_13ond")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth"]
+shape = SubResource("RectangleShape2D_utnep")
+
+[node name="Meteor" type="RigidBody2D" parent="."]
+position = Vector2(-465, -66)
+scale = Vector2(0.6, 0.6)
+gravity_scale = 0.0
+script = ExtResource("5_udtmg")
+
+[node name="Sprite" type="Sprite2D" parent="Meteor"]
+texture = ExtResource("1_13ond")
+script = ExtResource("6_2l8wi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Meteor"]
+shape = SubResource("RectangleShape2D_stbio")
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ipwn5")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemyPath"]
+position = Vector2(-576, 328)
+rotation = -1.5708
+
+[node name="Timer" type="Timer" parent="."]

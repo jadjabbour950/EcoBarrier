@@ -1,0 +1,174 @@
+[gd_scene load_steps=20 format=3 uid="uid://degau7353ssed"]
+
+[ext_resource type="Script" path="res://MenuScene.gd" id="1_ovpci"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="2_reql7"]
+[ext_resource type="Script" path="res://MenuEarth.gd" id="3_2hv0v"]
+[ext_resource type="Script" path="res://Play.gd" id="3_7ibjb"]
+[ext_resource type="Texture2D" uid="uid://dwmoqt7qi1g" path="res://ufoGreen.png" id="3_sce0t"]
+[ext_resource type="Script" path="res://Star.gd" id="6_5csm8"]
+[ext_resource type="Script" path="res://Title.gd" id="6_fvv8i"]
+[ext_resource type="Script" path="res://MeteorTimer.gd" id="7_4m4l1"]
+[ext_resource type="Texture2D" uid="uid://5dnx3bb7yg7m" path="res://meteorBrown_big1.png" id="7_mwedv"]
+[ext_resource type="Texture2D" uid="uid://rvy2goorta0n" path="res://meteorBrown_big2.png" id="8_72we8"]
+[ext_resource type="Texture2D" uid="uid://gwwp4vxdi33p" path="res://meteorGrey_big1.png" id="9_klthr"]
+[ext_resource type="Texture2D" uid="uid://bsp735t3olvql" path="res://meteorGrey_big2.png" id="10_l027m"]
+[ext_resource type="Script" path="res://MeteorBG.gd" id="11_v1j14"]
+[ext_resource type="AudioStream" uid="uid://b70vjg83883m5" path="res://Among_Us_Menu_Music-639824.wav" id="13_rkgri"]
+
+[sub_resource type="Theme" id="Theme_cd25p"]
+default_font_size = 61
+
+[sub_resource type="Theme" id="Theme_0thhv"]
+default_font_size = 61
+
+[sub_resource type="LabelSettings" id="LabelSettings_g0yeu"]
+font_size = 72
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ofoi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h0wig"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_mwedv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_72we8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_klthr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_l027m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MenuScene" type="Node2D"]
+script = ExtResource("1_ovpci")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_reql7")
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+z_index = -2
+offset_left = -577.0
+offset_top = -324.0
+offset_right = 577.0
+offset_bottom = 324.0
+
+[node name="Earth" type="Sprite2D" parent="."]
+position = Vector2(0, -96)
+texture = ExtResource("3_sce0t")
+script = ExtResource("3_2hv0v")
+
+[node name="Play" type="Button" parent="."]
+offset_left = -205.0
+offset_top = 43.0
+offset_right = -40.0
+offset_bottom = 159.0
+theme = SubResource("Theme_cd25p")
+text = "Play"
+script = ExtResource("3_7ibjb")
+
+[node name="Credits" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.5
+offset_top = 180.0
+offset_right = 82.5
+offset_bottom = 296.0
+grow_horizontal = 2
+theme = SubResource("Theme_cd25p")
+text = "Credits"
+script = ExtResource("3_7ibjb")
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 40.0
+offset_top = 43.0
+offset_right = 205.0
+offset_bottom = 159.0
+theme = SubResource("Theme_0thhv")
+text = "Quit"
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.5
+offset_top = -410.0
+offset_right = 218.5
+offset_bottom = -311.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "ECOBARRIER"
+label_settings = SubResource("LabelSettings_g0yeu")
+script = ExtResource("6_fvv8i")
+
+[node name="Star" type="Area2D" parent="."]
+z_index = -2
+position = Vector2(-618, -324)
+scale = Vector2(-0.177466, 0.313815)
+script = ExtResource("6_5csm8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Star"]
+shape = SubResource("RectangleShape2D_2ofoi")
+
+[node name="ColorRect" type="ColorRect" parent="Star"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(0.496855, 0.496875)
+
+[node name="StarTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -566.0
+offset_top = -219.0
+offset_right = -526.0
+offset_bottom = -196.0
+text = "Controls:
+Left arrow - move left
+Right arrow - move right"
+
+[node name="About" type="Button" parent="."]
+offset_left = -494.0
+offset_top = 130.0
+offset_right = -308.0
+offset_bottom = 246.0
+theme = SubResource("Theme_cd25p")
+text = "About
+"
+script = ExtResource("3_7ibjb")
+
+[node name="MeteorTimer" type="Timer" parent="."]
+wait_time = 17.0
+autostart = true
+script = ExtResource("7_4m4l1")
+
+[node name="Meteor" type="AnimatedSprite2D" parent="."]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_h0wig")
+script = ExtResource("11_v1j14")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_rkgri")
+autoplay = true
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="StarTimer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="About" to="." method="_on_about_pressed"]
+[connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]

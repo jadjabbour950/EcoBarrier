@@ -1,0 +1,149 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxxc3pupwkoao"]
+
+[ext_resource type="Texture2D" uid="uid://be6qne54j4o35" path="res://icon.svg" id="1_gu12t"]
+[ext_resource type="Script" path="res://About.gd" id="1_wuccj"]
+[ext_resource type="Script" path="res://Play.gd" id="3_kn4q5"]
+[ext_resource type="Texture2D" uid="uid://dwmoqt7qi1g" path="res://ufoGreen.png" id="4_obir8"]
+[ext_resource type="Script" path="res://MenuEarth.gd" id="5_k1i0r"]
+[ext_resource type="Texture2D" uid="uid://gwwp4vxdi33p" path="res://meteorGrey_big1.png" id="6_iqkju"]
+[ext_resource type="AudioStream" uid="uid://b70vjg83883m5" path="res://Among_Us_Menu_Music-639824.wav" id="7_tlbfy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mnm34"]
+font_size = 32
+
+[sub_resource type="Theme" id="Theme_wbyrd"]
+default_font_size = 61
+
+[sub_resource type="Curve" id="Curve_7lfbu"]
+_data = [Vector2(0.847368, 0.351648), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Gradient" id="Gradient_jwkjk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8vgqs"]
+font_size = 49
+
+[node name="About" type="Node2D"]
+position = Vector2(-1, -2)
+script = ExtResource("1_wuccj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+z_index = -2
+offset_left = -577.0
+offset_top = -324.0
+offset_right = 575.0
+offset_bottom = 322.0
+
+[node name="Text" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -463.0
+offset_top = -269.0
+offset_right = 463.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "About:
+
+In they year 2130, scientists have located a massive
+increase in meteorites heading towards earth's atmosphere
+
+You have been deployed by NASA with a special space ship
+called the \"Whipple Shielder\", and your job is to deflect
+as many asteroids as you possibly can to protect earth."
+label_settings = SubResource("LabelSettings_mnm34")
+horizontal_alignment = 1
+
+[node name="MAP" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-432, 236)
+texture = ExtResource("1_gu12t")
+
+[node name="Back" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.5
+offset_top = 180.0
+offset_right = 82.5
+offset_bottom = 296.0
+grow_horizontal = 2
+theme = SubResource("Theme_wbyrd")
+text = "Back"
+script = ExtResource("3_kn4q5")
+
+[node name="Earth" type="Sprite2D" parent="."]
+position = Vector2(-360, 260)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_obir8")
+script = ExtResource("5_k1i0r")
+
+[node name="Meteorite" type="Sprite2D" parent="."]
+position = Vector2(-461, 174)
+rotation = 3.11018
+scale = Vector2(0.622, 0.673)
+texture = ExtResource("6_iqkju")
+
+[node name="SwiftLine" type="Line2D" parent="."]
+position = Vector2(-3, 4.79511)
+points = PackedVector2Array(-512, 124, -496, 143)
+width_curve = SubResource("Curve_7lfbu")
+gradient = SubResource("Gradient_jwkjk")
+
+[node name="SwiftLine2" type="Line2D" parent="."]
+position = Vector2(28, -1.20489)
+rotation = 0.0129994
+points = PackedVector2Array(-512, 124, -496, 143)
+width_curve = SubResource("Curve_7lfbu")
+gradient = SubResource("Gradient_jwkjk")
+
+[node name="SwiftLine3" type="Line2D" parent="."]
+position = Vector2(6, -9.20489)
+rotation = 0.0129994
+points = PackedVector2Array(-512, 124, -496, 143)
+width_curve = SubResource("Curve_7lfbu")
+gradient = SubResource("Gradient_jwkjk")
+
+[node name="Barrier" type="ColorRect" parent="."]
+offset_left = -423.0
+offset_top = 234.0
+offset_right = -374.0
+offset_bottom = 243.0
+rotation = -0.823362
+
+[node name="ArrowHead1" type="Line2D" parent="."]
+points = PackedVector2Array(-311, 235, -304, 221)
+width = 5.0
+
+[node name="ArrowHead2" type="Line2D" parent="."]
+position = Vector2(-1, -1.75)
+points = PackedVector2Array(-311, 235, -296, 243)
+width = 5.0
+
+[node name="ArrowLine" type="Line2D" parent="."]
+position = Vector2(-1, -1.75)
+points = PackedVector2Array(-311, 235, -281, 226.75)
+width = 5.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -276.0
+offset_top = 204.0
+offset_right = -172.0
+offset_bottom = 274.0
+rotation = -0.119385
+scale = Vector2(0.5, 0.5)
+text = "YOU"
+label_settings = SubResource("LabelSettings_8vgqs")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_tlbfy")
+autoplay = true
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

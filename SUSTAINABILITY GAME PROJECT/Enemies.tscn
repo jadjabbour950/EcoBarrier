@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://d5uc0dug7pw6"]
+
+[ext_resource type="Script" path="res://Meteor.gd" id="1_udgpj"]
+[ext_resource type="Script" path="res://Enemies.gd" id="1_v1ohy"]
+[ext_resource type="Texture2D" uid="uid://rvy2goorta0n" path="res://meteorBrown_big2.png" id="3_n7cyt"]
+[ext_resource type="Texture2D" uid="uid://gwwp4vxdi33p" path="res://meteorGrey_big1.png" id="5_g1j25"]
+[ext_resource type="Texture2D" uid="uid://5dnx3bb7yg7m" path="res://meteorBrown_big1.png" id="5_khmse"]
+[ext_resource type="Texture2D" uid="uid://bsp735t3olvql" path="res://meteorGrey_big2.png" id="6_nelto"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rcxo5"]
+radius = 83.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vj03k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_khmse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n7cyt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g1j25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nelto")
+}],
+"loop": true,
+"name": &"Meteor",
+"speed": 5.0
+}]
+
+[node name="Enemies" type="Node2D"]
+script = ExtResource("1_v1ohy")
+
+[node name="Meteor" type="Area2D" parent="."]
+script = ExtResource("1_udgpj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Meteor"]
+position = Vector2(-0.5, 0)
+scale = Vector2(0.6, 0.6)
+shape = SubResource("CircleShape2D_rcxo5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Meteor"]
+sprite_frames = SubResource("SpriteFrames_vj03k")
+animation = &"Meteor"
+frame = 1
+
+[connection signal="Barrier_Touched" from="Meteor" to="." method="_on_meteor_barrier_touched"]
+[connection signal="Go_To_Menu" from="Meteor" to="." method="_on_meteor_go_to_menu"]

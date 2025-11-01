@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d5uc0dug7pw6"]
+
+[ext_resource type="Script" path="res://Meteor.gd" id="1_udgpj"]
+[ext_resource type="Texture2D" uid="uid://be6qne54j4o35" path="res://icon.svg" id="2_mhjx5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ox1gx"]
+size = Vector2(129, 128)
+
+[node name="Enemies" type="Node2D"]
+
+[node name="Meteor" type="Area2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_udgpj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Meteor"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_mhjx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Meteor"]
+position = Vector2(-0.5, 0)
+scale = Vector2(0.6, 0.6)
+shape = SubResource("RectangleShape2D_ox1gx")
